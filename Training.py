@@ -66,7 +66,7 @@ def training(model: AudioClassifier, train_dl, num_epochs: int, device: torch.de
         acc = correct_prediction / total_prediction
         t1 = time.perf_counter()
         print(
-            f"Epoch: {epoch + 1}, Loss: {avg_loss:.2f}, Accuracy: {acc:.2f}, Total time: {(t1 - t0):.2f}s"
+            f"Epoch: {epoch + 1}, Loss: {avg_loss:.4f}, Accuracy: {acc:.4f}, Total time: {(t1 - t0):.2f}s"
         )
         if epoch % 5 == 4:
             c = int(input("Continue training? 0: break, 1: continue\n"))
@@ -76,5 +76,5 @@ def training(model: AudioClassifier, train_dl, num_epochs: int, device: torch.de
         # Save losses and accuracies for ploting
         losses.append(avg_loss)
         accuracies.append(acc)
-        np.save("data/losses.npy", arr=np.array(losses))
-        np.save("data/accuracies.npy", arr=np.array(accuracies))
+    np.save("data/losses.npy", arr=np.array(losses))
+    np.save("data/accuracies.npy", arr=np.array(accuracies))
