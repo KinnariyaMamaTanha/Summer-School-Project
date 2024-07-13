@@ -5,5 +5,5 @@ FROM pytorch/pytorch:${PYTORCH_VERSION}-cuda${CUDA_VERSION}-cudnn${CUDNN_VERSION
 COPY *.py /workspace/
 RUN pip install -i https://pypi.mirrors.ustc.edu.cn/simple/ --upgrade pip \
     && pip config set global.index-url https://pypi.mirrors.ustc.edu.cn/simple/ \
-    && pip install debugpy soundata matplotlib pandas \
+    && pip install debugpy soundata matplotlib pandas scikit-learn \
     && python /workspace/DataDownloader.py
