@@ -3,7 +3,7 @@ from torch.utils.data import random_split
 from CustomDataLoader import SoundDS
 from Testing import testing
 from Model import AudioClassifier
-from Training import training
+from Training import training, kfold_training
 import time
 from MetadataLoader import MetadataLoader
 
@@ -35,10 +35,10 @@ num_test = num_items - num_train
 train_ds, test_ds = random_split(myds, [num_train, num_test])
 
 # Create training and testing data loaders
-train_dl = torch.utils.data.DataLoader(train_ds, batch_size=16, shuffle=True)
+# train_dl = torch.utils.data.DataLoader(train_ds, batch_size=16, shuffle=True)
 test_dl = torch.utils.data.DataLoader(test_ds, batch_size=16, shuffle=True)
 
-print("Batchees already loaded!\n\n")
+print("Batches already loaded!\n\n")
 
 # -------------------------------------------------------------
 # ---- model ----
@@ -70,7 +70,8 @@ print("Begin training...")
 t0 = time.perf_counter()
 
 num_epochs = 50
-training(model, train_dl, num_epochs, device)
+# training(model, train_dl, num_epochs, device)
+kfold_training(model, train_ds, num_epochs, device)
 
 # Save model
 torch.save(model.state_dict(), "data/model.pt")
@@ -80,7 +81,7 @@ t1 = time.perf_counter()
 print(f"Training completed! Total time: {(t1 - t0):.2f}s\n\n")
 
 # -------------------------------------------------------------
-# ---- Testint ----
+# ---- Testing ----
 # -------------------------------------------------------------
 
 print("Begin testing...")

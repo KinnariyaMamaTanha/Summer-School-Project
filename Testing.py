@@ -2,7 +2,7 @@ import torch
 import Model
 
 
-def testing(model: Model.AudioClassifier, test_dl, device: torch.device):
+def testing(model: Model.AudioClassifier, test_dl, device: torch.device, from_kfold = False):
     correct_prediction: int = 0
     total_prediction: int = 0
     with torch.no_grad():
@@ -24,3 +24,6 @@ def testing(model: Model.AudioClassifier, test_dl, device: torch.device):
 
     acc = correct_prediction / total_prediction
     print(f"Accuracy: {acc:.2f}, Total items: {total_prediction}")
+
+    if(from_kfold):
+        return acc
